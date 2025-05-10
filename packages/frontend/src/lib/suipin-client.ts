@@ -23,8 +23,10 @@ export async function fundSui(address: string) {
     return
   }
 
+  // NOTE: this is a testnet private key, do not use it in production
   const privateKey
   = 'suiprivkey1qqcwgpdwn0xzyy5w0zdx0wu5v7gem65ek3vh5q0482qc87u6hc9ryl36uhm'
+  // address: 0x3a832eff94bfb92c8a6f22a167f45e0cd450b09d3d338551f229b002c1d942d7
   const keypair = Ed25519Keypair.fromSecretKey(
     decodeSuiPrivateKey(privateKey).secretKey,
   )

@@ -44,10 +44,7 @@ function View({
       picker={picker}
       pickerOwnerCapId={pickerOwnerCapId}
       walletAddress={walletAddress}
-      onJoin={async () => {
-        console.log('onJoin')
-        await refetch()
-      }}
+      onJoin={async () => await refetch()}
     />
   )
 }
