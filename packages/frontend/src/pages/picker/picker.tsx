@@ -134,16 +134,15 @@ export function Picker({
           {hasParticipants && (
             <div className="text-center w-full">
               <p className="text-gray-500">
-                参加人数:
+                Participants:
                 {participants.length}
-                人
               </p>
             </div>
           )}
 
           {!hasParticipants && pickerOwnerCapId && (
             <div className="text-center w-full">
-              <p className="text-gray-500">参加者を待っています</p>
+              <p className="text-gray-500">Waiting for participants</p>
             </div>
           )}
 
@@ -172,12 +171,12 @@ export function Picker({
 
           {picker.winner && (
             <div className="text-center w-full space-y-2">
-              <p className="text-gray-500">抽選は終了しました</p>
+              <p className="text-gray-500">Raffle has ended</p>
               <Button
                 onClick={() => setShowResult(true)}
                 variant="outline"
               >
-                当選者を確認する
+                View Winner
               </Button>
             </div>
           )}
@@ -189,7 +188,7 @@ export function Picker({
       {balance < 0.1 && (
         <Button onClick={async () => {
           await fundSui(walletAddress)
-          toast('Testnet SUIを取得しました')
+          toast('Testnet SUI acquired')
           await sleep(2000)
           await refetchBalance()
         }}
@@ -278,10 +277,10 @@ function DoSection({
         ? (
             <>
               <Loader2 className="animate-spin" />
-              抽選中...
+              Spinning...
             </>
           )
-        : '抽選開始！'}
+        : 'Start Spin!'}
     </Button>
   )
 }
@@ -331,7 +330,7 @@ function JoinSection({
       {!isJoined && (
         <Input
           className="w-full mb-2"
-          placeholder="名前を入力してください(重複不可)"
+          placeholder="Enter your name (unique)"
           disabled={isJoined}
           value={name}
           onChange={e => setName(e.target.value)}
@@ -344,15 +343,15 @@ function JoinSection({
         size="lg"
       >
         {isJoined
-          ? '参加受付完了'
+          ? 'Joined'
           : joinning
             ? (
                 <>
                   <Loader2 className="animate-spin" />
-                  申し込み中...
+                  Joining...
                 </>
               )
-            : '💧参加する'}
+            : '💧Join'}
       </Button>
     </div>
   )

@@ -10,11 +10,11 @@ export default function Page() {
   const currentAccount = useCurrentAccount()
 
   if (!pickerId) {
-    return <div className="text-center">Post IDが指定されていません</div>
+    return <div className="text-center">Post ID is not specified</div>
   }
 
   if (!currentAccount) {
-    return <div className="text-center">Walletが接続されていません</div>
+    return <div className="text-center">Wallet is not connected</div>
   }
 
   return (

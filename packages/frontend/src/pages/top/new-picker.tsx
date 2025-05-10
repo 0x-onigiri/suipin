@@ -25,13 +25,13 @@ async function uploadImageToWalrus(file: File) {
     })
 
     if (!response.ok) {
-      throw new Error(`画像アップロード失敗: ${response.statusText}`)
+      throw new Error(`Image upload failed: ${response.statusText}`)
     }
 
     return await response.json()
   }
   catch (error) {
-    console.error('画像アップロードエラー:', error)
+    console.error('Image upload error:', error)
     throw error
   }
 }
@@ -54,11 +54,11 @@ export function NewPicker() {
     const pickerImage = formData.get('picker_image') as File | null
 
     if (!title) {
-      return { message: 'タイトルを入力してください。' }
+      return { message: 'Please enter a title.' }
     }
 
     if (!pickerImage || pickerImage.size === 0) {
-      return { message: '画像ファイルを選択してください。' }
+      return { message: 'Please select an image file.' }
     }
 
     const result = await uploadImageToWalrus(pickerImage)
@@ -117,7 +117,7 @@ export function NewPicker() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle>抽選を作成する</CardTitle>
+        <CardTitle>Create Picker</CardTitle>
       </CardHeader>
       <CardContent>
 
@@ -132,12 +132,12 @@ export function NewPicker() {
           }}
         >
           <div className="space-y-1">
-            <Label htmlFor="title">抽選タイトル</Label>
-            <Input id="title" name="title" placeholder="Suiイベント抽選" />
+            <Label htmlFor="title">Picker Title</Label>
+            <Input id="title" name="title" placeholder="Sui Event Raffle" />
           </div>
 
           <div className="space-y-1">
-            <Label htmlFor="image">画像</Label>
+            <Label htmlFor="image">Image</Label>
             <Input
               id="picker_image"
               name="picker_image"
@@ -163,10 +163,10 @@ export function NewPicker() {
               ? (
                   <>
                     <Loader2 className="animate-spin" />
-                    作成中...
+                    Creating...
                   </>
                 )
-              : '作成'}
+              : 'Create'}
           </Button>
         </form>
       </CardContent>

@@ -29,18 +29,18 @@ export function UrlCopy({ url }: { url: string }) {
   return (
     <div className="max-w-md w-full mx-auto p-4">
       <div className="flex items-center space-x-2">
-        <span>投票ページURL</span>
+        <span>Picker Page URL</span>
         <Input value={url} className="flex-1" readOnly />
         <TooltipProvider>
           <Tooltip open={open} onOpenChange={setOpen}>
             <TooltipTrigger asChild>
               <Button variant="outline" size="icon" onClick={copyToClipboard} className="flex-shrink-0">
                 {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
-                <span className="sr-only">URLをコピー</span>
+                <span className="sr-only">Copy URL</span>
               </Button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>コピーしました！</p>
+              <p>Copied!</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>

@@ -16,13 +16,13 @@ export function ResultPopup({ name, txDigest, image, onClose }: ResultPopupProps
     <Dialog open={true} onOpenChange={open => !open && onClose()}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle className="text-center text-2xl font-bold">🎉 当選結果 🎉</DialogTitle>
+          <DialogTitle className="text-center text-2xl font-bold">🎉 Winner Announcement 🎉</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col items-center gap-4">
-          <img src={image} alt="当選NFT" className="size-48 object-cover" />
+          <img src={image} alt="Winner NFT" className="size-48 object-cover" />
 
           <div className="text-center space-y-2">
-            <h3 className="text-xl font-semibold">当選者</h3>
+            <h3 className="text-xl font-semibold">Winner</h3>
             <p className="text-2xl font-bold text-blue-600">{name}</p>
           </div>
 
@@ -32,7 +32,7 @@ export function ResultPopup({ name, txDigest, image, onClose }: ResultPopupProps
               onClick={() => window.open(`https://testnet.suivision.xyz/txblock/${txDigest}`, '_blank')}
             >
               <ExternalLink className="h-4 w-4" />
-              抽選結果をSuiVisionで確認する
+              View Results on SuiVision
             </Button>
           </div>
         </div>
