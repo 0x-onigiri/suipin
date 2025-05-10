@@ -5,21 +5,27 @@ import { Badge } from '@/components/ui/badge'
 import { truncateAddress } from '@/lib/utils'
 import {
   useCurrentAccount,
+  useAccounts,
   useDisconnectWallet,
   ConnectModal,
+  useSwitchAccount,
 } from '@mysten/dapp-kit'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuItem,
 } from '@/components/ui/dropdown-menu'
 import type { WalletAccount } from '@mysten/wallet-standard'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { fetchSuiBalance } from '@/lib/suipin-client'
+import { cn } from '@/lib/utils'
 
 export function Header() {
   const [open, setOpen] = useState(false)
   const currentAccount = useCurrentAccount()
+  const accounts = useAccounts()
 
   return (
     <header className="w-full py-2 px-6 flex justify-between items-center border-b">
@@ -50,6 +56,7 @@ export function Header() {
         {currentAccount && (
           <WalletMenu
             walletAccount={currentAccount}
+            wallets={accounts}
           />
         )}
       </div>
@@ -59,8 +66,10 @@ export function Header() {
 
 function WalletMenu({
   walletAccount,
+  wallets,
 }: {
   walletAccount: WalletAccount
+  wallets: readonly WalletAccount[]
 }) {
   const { data: balance } = useSuspenseQuery({
     queryKey: ['fetchSuiBalance', walletAccount.address],
@@ -76,6 +85,7 @@ function WalletMenu({
       </Badge>
       <WalletButton
         walletAccount={walletAccount}
+        wallets={wallets}
       />
     </div>
   )
@@ -83,10 +93,13 @@ function WalletMenu({
 
 function WalletButton({
   walletAccount,
+  wallets,
 }: {
   walletAccount: WalletAccount
+  wallets: readonly WalletAccount[]
 }) {
   const { mutate: disconnect } = useDisconnectWallet()
+  const { mutate: switchAccount } = useSwitchAccount()
 
   return (
     <div>
@@ -106,6 +119,36 @@ function WalletButton({
               Disconnect
             </Button>
           </div>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          {
+            wallets.map((account) => {
+              const isCurrentAccount = account.address === walletAccount.address
+              return (
+                <DropdownMenuItem key={account.address}>
+                  <Button
+                    className={
+                      cn(
+                        isCurrentAccount && 'bg-accent',
+                      )
+                    }
+                    variant="secondary"
+                    onClick={() => {
+                      switchAccount(
+                        { account },
+                        {
+                          onSuccess: () => console.log(`switched to ${account.address}`),
+                        },
+                      )
+                    }}
+                  >
+                    {
+                      truncateAddress(account.address)
+                    }
+                  </Button>
+                </DropdownMenuItem>
+              )
+            })
+          }
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
